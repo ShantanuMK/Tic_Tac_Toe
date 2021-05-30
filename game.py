@@ -7,18 +7,17 @@ board_keys = []
 for key in theBoard:
     board_keys.append(key)
 
-''' We will have to print the updated board after every move in the game and 
-    thus we will make a function in which we'll define the printBoard function
-    so that we can easily print the board everytime by calling this function. '''
 
 def printBoard(board):
-    print(board['7'] + '|' + board['8'] + '|' + board['9'])
+    print(end='\n')
+    print(board['1'] + '|' + board['2'] + '|' + board['3'])
     print('-+-+-')
     print(board['4'] + '|' + board['5'] + '|' + board['6'])
     print('-+-+-')
-    print(board['1'] + '|' + board['2'] + '|' + board['3'])
+    print(board['7'] + '|' + board['8'] + '|' + board['9'])
+    print(end='\n')
 
-# Now we'll write the main function which has all the gameplay functionality.
+# main function which has all the gameplay functionality.
 def game():
 
     turn = 'X'
@@ -38,61 +37,54 @@ def game():
             print("That place is already filled.\nMove to which place?")
             continue
 
-        # Now we will check if player X or O has won,for every move after 5 moves. 
+        # check if player X or O has won,for every move after 5 moves. 
         if count >= 5:
+            check = False
             if theBoard['7'] == theBoard['8'] == theBoard['9'] != ' ': # across the top
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")                
+                check = True                
                 break
             elif theBoard['4'] == theBoard['5'] == theBoard['6'] != ' ': # across the middle
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break
             elif theBoard['1'] == theBoard['2'] == theBoard['3'] != ' ': # across the bottom
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break
             elif theBoard['1'] == theBoard['4'] == theBoard['7'] != ' ': # down the left side
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break
             elif theBoard['2'] == theBoard['5'] == theBoard['8'] != ' ': # down the middle
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break
             elif theBoard['3'] == theBoard['6'] == theBoard['9'] != ' ': # down the right side
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break 
             elif theBoard['7'] == theBoard['5'] == theBoard['3'] != ' ': # diagonal
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
+                check = True
                 break
             elif theBoard['1'] == theBoard['5'] == theBoard['9'] != ' ': # diagonal
-                printBoard(theBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break 
+                check = True
+                break
 
-        # If neither X nor O wins and the board is full, we'll declare the result as 'tie'.
+            
+
+        #tie
         if count == 9:
             print("\nGame Over.\n")                
             print("It's a Tie!!")
 
-        # Now we have to change the player after every move.
+        #change next player
         if turn =='X':
             turn = 'O'
         else:
             turn = 'X'        
     
-    # Now we will ask if player wants to restart the game or not.
+    
+    if check:
+                printBoard(theBoard)
+                print("\nGame Over.\n")                
+                print(" **** " +turn + " won. ****")
+
+    #restart the game or not.
     restart = input("Do want to play Again?(y/n)")
     if restart == "y" or restart == "Y":  
         for key in board_keys:
